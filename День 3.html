@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>День третий (терпимо)</title>
+        <style>
+            .large{
+             width:100px;
+             height:100px;
+    
+            }
+            .fancyb{
+             width:486;
+             height:630px;
+    
+            }
+            .color2{
+             color:white;
+            }
+            .black{
+             color:black;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <input type="text" v-model="piece">
+            <table v-for="Student in students">
+                
+               <tr v-bind:class="Student.surname.includes(piece)?'':'color2'">
+                <td>{{Student.surname}}</td> <td>{{Student.name}}</td> <td>{{Student.group}}</td> <td>{{Student.year}} </td>
+                    <td><div v-if="Student.Zdav==true"><input type="checkbox" disabled checked="Student.Zdav"></div>
+                    <div v-else><input type="checkbox" disabled ></div> </td>
+                    <td><a href="#" v-on:click="del(Student.id)">Delete</a></td>
+            </tr> 
+            <br>
+            </table>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            var app=new Vue({
+     el:"#app",
+     data:{
+     piece:"",
+     choose:"Yes",
+     students :[
+                    {   
+                        "surname":"Кульченко",
+                        "name": "Ярослав",
+                        "group": "РПЗ 17 2/9",
+                        "year":"11.1.2002",
+                        "Zdav":false,
+                        "id":0
+                    },
+                    {   
+                        "surname":"Кулиш",
+                        "name": "Алексей ",
+                        "group": "МЕУ 17 2/9",
+                        "year":"31.03.2002",
+                        "Zdav":false,
+                        "id":1
+                    },
+                    {
+                        "surname":"Колчев",
+                        "name": "Андрей",
+                        "group": "РПЗ 17 2/9",
+                        "year":"10.12.2001",
+                        "Zdav":true,
+                        "id":2
+                    },
+                    {
+                        "surname":"Беляк",
+                        "name": "Владислав",
+                        "group": "РПЗ 17 2/9",
+                        "year":"25.01.2002",
+                        "Zdav":true,
+                        "id":3
+                    },
+                    {   
+                        "surname":"Демченко",
+                        "name": "Антон",
+                        "group": "РПЗ 17 2/9",
+                        "year":"18.11.2001",
+                        "Zdav":true,
+                        "id":4
+                    },
+                    {   
+                        "surname":"Ярошенко",
+                        "name": "Владислав",
+                        "group": "РПЗ 17 2/9",
+                        "year":"28.02.1999",
+                        "Zdav":true,
+                        "id":5
+                    },
+                    {   
+                        "surname":"Рябова",
+                        "name": "Юлия",
+                        "group": "РПЗ 17 2/9",
+                        "year":"01.06.2002",
+                        "Zdav":true,
+                        "id":6
+                    },
+                ],
+        arraysort:[],
+        },
+        methods:{
+        del:function(id){
+        this.students.splice(id,1);
+        for (let i=0;i<this.students.length;i++){
+         if (this.students[id].id>id){
+        this.students[id].id-=1;
+        }
+        }
+    }
+    }      
+            })
+        </script>
+    </body>
+</html>

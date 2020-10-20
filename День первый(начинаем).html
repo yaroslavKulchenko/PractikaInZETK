@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Практика день первый</title>
+	<script src="./День первый.js"></script>
+</head>
+<body>
+	
+
+
+
+	<div id="zadanie1">
+		<h1>Задание 1</h1>
+		<input type = "number" v-model = "num">
+		<p v-if="20 >= num && num > 0">Подъезд №1</p>
+		<p v-else-if="48 >= num && num > 20">Подъезд №2</p>
+		<p v-else-if="90 >= num && num > 48">Подъезд №3</p>
+		<p v-else>Ошибка</p>
+	</div>
+	<script>
+		var zadanie1 = new Vue({
+			el: "#zadanie1",
+			data:{
+				num: 0
+			}
+		})
+	</script>
+	<div id="zadanie2">
+		<h1>Задание 2</h1>
+		<input type = "text" v-model = "login">
+		<br>
+		<input type = "text" v-model = "password">
+		<p v-if="login === 'toma' && password === '123' || login === 'petya' && password === '777' || login === 'olya' && password === '456'">Welcome</p>
+		<p v-else>Ошибка</p>
+	</div>
+	<script>
+	var zadanie2 = new Vue({
+	el: "#zadanie2",
+	data:{
+	login: "",
+	password: ""			
+		}
+		})
+	</script>
+	<div id="zadanie3">
+		<h2>Задание №3</h2>
+		<input type = "number" v-model = "year_p">
+		<br>
+		<p v-if="year - year_p >= 16">Welcome</p>
+		<p v-else>Вход запрещён</p>
+	</div>
+	<script>
+		var zadanie3 = new Vue({
+			el: "#zadanie3",
+			data:{
+			year_p: 0,
+			year: 2020			
+			}
+		})
+	</script>
+
+	<div id="zadanie2OfFunction">
+	<h2>Функции задание 2 </h2>
+	<p id="p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque similique natus amet sint quod officia</p>
+	<p id="p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque similique natus amet sint quod officia</p>
+	<p id="p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque similique natus amet sint quod officia</p>
+	<p id="p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque similique natus amet sint quod officia</p>
+	<p id="p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque similique natus amet sint quod officia</p>
+	<p id="p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque similique natus amet sint quod officia</p>
+		<script>
+			var p = document.querySelectorAll('#p');
+		   for (var i = 0; i < p.length; i++) {
+			 var n = i + 1;
+			 p[i].innerHTML += " " + n;
+		   }
+		   </script>
+	</div>
+
+	<div id = "zavd6">
+	<br>
+	<h1>Циклы задание №6</h1>
+	<br>
+	<ul id="zavd6">
+		<li v-for = "item in items" key="item.message">
+			{{item.message}}
+	</li>
+	</ul>
+	</div>
+	<script>
+	var zavd6 = new Vue({
+	el: "#zavd6",
+		data: {
+		items:[
+		{message:"5x1=5"},
+		{message:"5x2=10"},
+		{message:"5x3=15"},
+		{message:"5x4=20"},
+		{message:"5x5=25"},
+		{message:"5x6=30"},
+		{message:"5x7=35"},
+		{message:"5x8=40"},
+		{message:"5x9=45"}
+		]
+		}
+	})
+	</script>
+
+
+
+<div id="zadanie11">
+	<h2>Задание №11</h2>
+	<br>
+	<button v-on:click = "rrandom">generate</button>
+	<br>
+	<input type="input" v-model = "my">
+	<button v-on:click = "q">Ответить</button>
+	<h3>{{ vv }}<br> Попыток: {{ i }}</h3>
+</div>
+	<script>
+		var zadanie11 = new Vue({
+			el: "#zadanie11",
+data:{
+		min:0,
+		max:10,
+		rr: 0,
+		my: 0,
+		vv: "",
+		i: 0
+		},
+	methods:{
+	rrandom:function(min, max){
+			this.rr = Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
+	},
+		q: function(my, rr){
+		if (this.my == this.rr) {
+		this.vv = "Вы угадали";
+	}
+	else if (this.my < this.rr) {
+	this.vv = "ответ >";
+	this.my = 0;
+	this.i++;				
+	}
+	else if (this.my > this.rr) {
+	this.vv = "ответ <";
+	this.my = 0;
+	this.i++;
+	}					
+	}
+				
+	}
+		})
+	</script>
+
+
+<div id="zadanie12">
+	<h1>Задание 12</h1>
+	<br>
+	<input type="radio" id="small" value="s" v-model = "picked">
+	<label for = "small">Маленький</label>
+	<br>
+	<input type="radio" id="big" value="b" v-model = "picked">
+	<label for = "big">Большой</label>
+	<br>
+	<span>Бургер: {{ picked }}</span>
+	<br>
+	<select v-model="selected">
+	  <option disabled value="">Выберите внутренность</option>
+	  <option>Сыр</option>
+	  <option>Салат</option>
+	  <option>Ветчина</option>
+	</select>
+	<br>
+	<span>Выбрано: {{ selected }}</span>
+	<br><br>
+	<button v-on:click = "method">Стоимость и калорийность</button>
+	<br>
+	<a>{{ a }} грн {{ b }} ккл.</a>
+	<br><br><br><br>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var zadanie12 = new Vue({
+		el: "#zadanie12",
+		data: {
+			picked: "",
+			selected: "",
+			a: 0,
+			b: 0,
+			c: 0,
+			d: 0			
+		},
+		methods:{
+			method:function(picked, selected){
+				if (this.picked == "s") {
+					this.a = 17;
+					this.b = 250;
+				}
+				else if(this.picked == "b") {
+					this.a = 25;
+					this.b = 340;
+				};
+				if (this.selected == "Сыр") {
+					this.c = 4;
+					this.d = 25;
+				}
+				else if (this.selected == "Салат") {
+					this.c = 5;
+					this.d = 5;
+				}
+				else if (this.selected == "Ветчина") {
+					this.c = 10;
+					this.d = 50;
+				};
+				this.a = this.a + this.c;
+				this.b = this.b + this.d;
+			}
+		}
+		
+	})
+	
+</script>
+</body>
+</html>

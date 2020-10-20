@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>День второй(не лёгкий)</title>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+  }
+  body { background-color: #9de1e6 }
+  h1 { text-align: center; font-weight: normal; }
+  table { margin: 40px auto }
+  th, td {
+    padding: 10px;
+  }
+  .white { color: white }
+  .black { color: black }
+  input {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 0px;
+    background-color: #FFF8DC;
+    border-radius: 10px
+  }
+  .cent {
+     text-align: center 
+     }
+  .btn {
+    font-size: 18px;
+    margin-top: 40px;
+    padding: 10px 15px;
+    border: 3px;
+    border-radius: 15px;
+    background-color: #FFF8DC;
+  }
+  .last > .btn {
+    margin-top: 0px;
+    margin-bottom: 20px;
+  }
+  .btn:active {
+    font-size: 18px;
+    padding: 5.5px 11px;
+  }
+  .sortedQuotes {
+    display: none;
+  }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Цитаты</h1>
+    <div class="cent">
+      <input v-model = "isAuthor" value = "true" type="radio" name="button">Вывести цитаты c автором</input>
+      <input v-model = "isAuthor" value = "all" type="radio" name="button">Вывести все цитаты</input>
+      <br/>
+      <button v-on:click = "forSortedArray" class = "btn" type="button" name="button">Отсортировать массив цитат</button>
+    </div>
+    <table border = '1'>
+      <thead>
+        <th>Quote</th>
+        <th>Sourse</th>
+      </thead>
+      <tbody>
+        <tr
+        v-for = "qt in withAuthor"
+        :class = "qt.quote.length > 39 ? 'white' : 'black'">
+          <td>{{ qt.quote }}</td>
+          <td>{{ qt.source }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class = "sortedQuotes">
+      <h1>Sorted Quotes</h1>
+      <table border = '1'>
+        <thead>
+          <th>Quote</th>
+          <th>Sourse</th>
+        </thead>
+        <tbody>
+          <tr
+          v-for = "qt in filterWithAuthor"
+          :class = "qt.quote.length > 39 ? 'white' : 'black'">
+            <td>{{ qt.quote }}</td>
+            <td>{{ qt.source }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        quotesArray: [
+          {
+            "quote": "This is a Quote_1",
+            "source": "Vanish"
+          },
+          {
+            "quote": "кто обзывается, тот так и называется))",
+            "source": "Джейсон Стетхем"
+          },
+          {
+            "quote": "когда нибудь наступит завтра, но не сегодня",
+            "source": "Владимир Кличко"
+          },
+          {
+            "quote": "Чем_старше_человек_,_тем_больше_ему_лет",
+            "source": "Владимир_Кличко 2"
+          },
+          {
+            "quote": "Шаг влево, шаг вправо - два шага",
+            "source": "Владимир Кличко 3"
+          },
+          {
+            "quote": "Волк сильнее льва и тигра, но в цирке волк не выступает",
+            "source": "Волк"
+          }
+        ],
+        isAuthor: "",
+        sortedArray: []
+      },
+      computed: {
+        withAuthor: function() {
+          if (this.isAuthor == "all") {
+            return this.quotesArray
+          }
+          else {
+            return this.quotesArray.filter(elem => {
+              return Boolean(this.isAuthor) == Boolean(elem.source)
+            })
+          }
+        },
+        filterWithAuthor: function() {
+          if (this.isAuthor == "all") {
+            return this.sortedArray
+          }
+          else {
+            return this.sortedArray.filter(elem => {
+              return Boolean(this.isAuthor) == Boolean(elem.source)
+            })
+          }
+        }
+      },
+      methods: {
+        forSortedArray: function() {
+          this.sortedArray = this.quotesArray.slice()
+          this.sortedArray.sort((a,b) => (a.source[0] < b.source[0])?-1:1)
+          let $formSorter =  document.querySelector('.sortedQuotes');
+          $formSorter.style.display = 'block'
+        }
+      }
+    })
+  </script>
+</body>
+</html>
